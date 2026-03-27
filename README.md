@@ -5,6 +5,7 @@
 [![PostgreSQL](https://img.shields.io/badge/PostgreSQL-17-4169E1?logo=postgresql&logoColor=white)](https://hub.docker.com/_/postgres)
 [![Redis](https://img.shields.io/badge/Redis-7-DC382D?logo=redis&logoColor=white)](https://hub.docker.com/_/redis)
 [![Caddy](https://img.shields.io/badge/Caddy-2-00ADD8?logo=caddy&logoColor=white)](https://hub.docker.com/_/caddy)
+[![Ko-fi](https://img.shields.io/badge/Ko--fi-Support-FF5E5B?logo=kofi&logoColor=white)](https://ko-fi.com/snuffomega)
 
 This Nextcloud FPM Lean Stack, customized to be a fast, filesharing-first Nextcloud stack that pairs the Official FPM server with Caddy for a purpose-built experience, avoiding unneeded bloat of the all-in-one image. This stack sticks to the official FPM build with Postgrs for a noticeably snappier experience with faster startup times and easily 3× faster under load, during uploads/downloads and cron-heavy workflows (over the AIO image). If you want a slightly more focused experience where performance is peramount this in designed for you. 
 
@@ -213,3 +214,9 @@ See "Managing Trusted Domains" — add your IP to the trusted list.
 Licensed under the [MIT License](LICENSE). See Nextcloud's own licensing at [nextcloud.com](https://nextcloud.com).
 
 **Built for homelabs. Runs anywhere Docker does.**
+
+---
+
+If this helped you out, consider [buying me a coffee](https://ko-fi.com/snuffomega).
+
+[![Support on Ko-fi](https://img.shields.io/badge/Ko--fi-F16061?style=flat-square&logo=ko-fi&logoColor=white)](https://ko-fi.com/snuffomega)
