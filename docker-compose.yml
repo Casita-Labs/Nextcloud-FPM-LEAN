@@ -1,6 +1,8 @@
 services:
   nextcloud:
     image: nextcloud:33-fpm-alpine
+    container_name: nextcloud
+    restart: unless-stopped
     environment:
       POSTGRES_HOST: nextcloud-db
       POSTGRES_DB: ${POSTGRES_DB:-nextcloud}
@@ -28,6 +30,8 @@ services:
 
   nextcloud-caddy:
     image: caddy:2-alpine
+    container_name: nextcloud-caddy
+    restart: unless-stopped
     ports:
       - "${CADDY_HTTP_PORT:-8080}:8080"
     depends_on:
@@ -39,7 +43,7 @@ services:
     networks:
       - nextcloud_net
     healthcheck:
-      test: ["CMD-SHELL", "wget -qO- http://localhost:${CADDY_HTTP_PORT:-8080}/status.php 2>/dev/null | grep -q installed || exit 1"]
+      test: ["CMD-SHELL", "wget -qO- -S http://localhost:${CADDY_HTTP_PORT:-8080}/status.php 2>&1 | grep -q '200 OK' || exit 1"]
       interval: 30s
       timeout: 10s
       retries: 3
@@ -47,6 +51,8 @@ services:
 
   nextcloud-db:
     image: postgres:17-alpine
+    container_name: nextcloud-db
+    restart: unless-stopped
     environment:
       POSTGRES_DB: ${POSTGRES_DB:-nextcloud}
       POSTGRES_USER: ${POSTGRES_USER:-nextcloud}
@@ -66,6 +72,8 @@ services:
 
   nextcloud-redis:
     image: redis:7-alpine
+    container_name: nextcloud-redis
+    restart: unless-stopped
     command: >
       redis-server
         --save ""
@@ -74,11 +82,18 @@ services:
         --maxmemory-policy volatile-lru
     volumes:
       - ./data/redis:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
     networks:
       - nextcloud_net
 
   nextcloud-cron:
     image: nextcloud:33-fpm-alpine
+    container_name: nextcloud-cron
+    restart: unless-stopped
     entrypoint: ["/cron.sh"]
     depends_on:
       nextcloud:
@@ -99,6 +114,7 @@ services:
 
   nextcloud-init:
     image: nextcloud:33-fpm-alpine
+    container_name: nextcloud-init
     restart: "no"
     depends_on:
       nextcloud:
