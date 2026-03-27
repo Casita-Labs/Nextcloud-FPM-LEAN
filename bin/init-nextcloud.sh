@@ -6,6 +6,12 @@ if [ "${AUTO_INIT:-true}" != "true" ]; then
   exit 0
 fi
 
+LOCK_FILE="/var/www/html/config/init.lock"
+if [ -f "$LOCK_FILE" ]; then
+  echo "Init already completed (lock file present). Skipping."
+  exit 0
+fi
+
 # Helpers -----------------------------------------------------------
 run_occ() {
   su -s /bin/sh www-data -c "php /var/www/html/occ $@"
@@ -75,4 +81,5 @@ if [ -n "${OVERWRITEPROTOCOL:-}" ]; then
 fi
 
 echo "Post-install tasks complete. Exiting."
+touch "$LOCK_FILE"
 exit 0

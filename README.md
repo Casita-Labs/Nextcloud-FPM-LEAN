@@ -115,9 +115,17 @@ here because the tunnel handles encryption.
 
 ## Maintenance helper
 
-`bin/init-nextcloud.sh` is the same helper used in the HTTPS stack. It waits for
-`occ status` to report "installed", runs recommended maintenance commands, and
-sets `overwriteprotocol` to the value of `OVERWRITEPROTOCOL`.
+`bin/init-nextcloud.sh` waits for `occ status` to report "installed", runs recommended
+maintenance commands, and sets `overwriteprotocol` to the value of `OVERWRITEPROTOCOL`.
+
+It runs **once** — after a successful run it writes `data/html/config/init.lock`. On
+every subsequent `docker compose up`, the script detects the lock file and exits immediately.
+
+To force it to re-run (e.g. after a major upgrade):
+```bash
+rm ./data/html/config/init.lock
+docker compose up nextcloud-init
+```
 
 
 ## Advanced
