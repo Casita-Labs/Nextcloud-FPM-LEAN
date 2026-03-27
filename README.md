@@ -31,7 +31,7 @@ docker-compose.yml
 
 ## Quick Start
 ```bash
-git clone https://github.com/snuffomega/nextcloud-fast-stack.git
+git clone https://github.com/Casita-Labs/Nextcloud-FPM-LEAN
 cd nextcloud-fast-stack/http-only
 cp .env.example .env
 docker compose up -d
