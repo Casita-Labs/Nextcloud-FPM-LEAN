@@ -105,7 +105,7 @@ services:
         condition: service_healthy
       nextcloud-db:
         condition: service_healthy
-    entrypoint: ["/bin/sh", "-c", "/init-nextcloud.sh"]
+    entrypoint: ["/bin/sh", "/init-nextcloud.sh"]
     environment:
       POSTGRES_DB: ${POSTGRES_DB:-nextcloud}
       POSTGRES_USER: ${POSTGRES_USER:-nextcloud}
