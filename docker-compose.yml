@@ -206,4 +206,5 @@ services:
 
 networks:
   nextcloud_net:
+    name: nextcloud
     driver: bridge

@@ -219,6 +219,18 @@ You can have both IPs and domains in the same instance. Increment the index numb
 
 ## Troubleshooting
 
+**Fresh install / nuke — `permission denied for table oc_migrations`?**
+
+This happens when the PostgreSQL and html volumes are out of sync (e.g. one was wiped
+without the other). Always wipe **all** data directories together:
+```bash
+docker compose down
+rm -rf ./data/html ./data/userdata ./data/postgres ./data/redis
+docker compose up -d
+```
+Wiping only `html` or only `postgres` causes Nextcloud to attempt a fresh install
+against a database that still has tables from a previous run.
+
 **Containers not healthy?**
 ```bash
 docker compose ps

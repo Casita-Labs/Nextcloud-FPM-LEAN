@@ -72,6 +72,7 @@ add_trusted_domain "${NEXTCLOUD_LOCAL_HOST:-}" "local"
 
 su -s /bin/sh www-data -c "php /var/www/html/occ db:add-missing-indices" || true
 su -s /bin/sh www-data -c "php /var/www/html/occ maintenance:repair --include-expensive" || true
+su -s /bin/sh www-data -c "php /var/www/html/occ config:system:set trusted_proxies 0 --value='172.16.0.0/12'" || true
 su -s /bin/sh www-data -c "php /var/www/html/occ config:system:set default_phone_region --value='${DEFAULT_PHONE_REGION:-US}'" || true
 su -s /bin/sh www-data -c "php /var/www/html/occ config:system:set maintenance_window_start --value='${MAINTENANCE_WINDOW_START:-2}'" || true
 
