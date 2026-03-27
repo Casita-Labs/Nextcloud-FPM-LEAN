@@ -30,7 +30,7 @@ docker-compose.yml
          └─ nextcloud-backup        mazzolino/restic:1
 ```
 
-## 1 - Quick Start
+## #1. Quick Start
 ```bash
 git clone https://github.com/Casita-Labs/Nextcloud-FPM-LEAN
 cd nextcloud-fast-stack/http-only
@@ -48,7 +48,7 @@ docker compose logs -f nextcloud nextcloud-init
    so `https://your-tunnel-hostname` routes through the stack.
 
 
-## 2- Update `.env` file
+## #2. Update `.env` file
 
 ```env
 POSTGRES_PASSWORD=strong-db-password
@@ -65,7 +65,7 @@ AUTO_INIT=true                        # run the helper automatically
 - Leave `AUTO_INIT=true` so the helper runs the maintenance/repair `occ` commands
   automatically (see `bin/init-nextcloud.sh`).
 
-## 3- Update `docker-compose.yml` - replace `./data` with your volume paths
+## #3. Update `docker-compose.yml` - replace `./data` with your volume paths
 ```
   nextcloud:
     image: nextcloud:33-fpm-alpine
@@ -92,6 +92,13 @@ AUTO_INIT=true                        # run the helper automatically
       - ./data/userdata:/var/www/html/data:rw # User documents, photos, etc.
 ```
 
+## #4. Launching
+
+```bash
+docker compose up -d
+``` 
+
+Stop with `docker compose down` and bring the tunnel back up after any restarts.
 
 ## What this stack includes
 
@@ -112,14 +119,6 @@ here because the tunnel handles encryption.
 `occ status` to report "installed", runs recommended maintenance commands, and
 sets `overwriteprotocol` to the value of `OVERWRITEPROTOCOL`.
 
-## Launching
-
-```bash
-cd http-only
-docker compose up -d
-``` 
-
-Stop with `docker compose down` and bring the tunnel back up after any restarts.
 
 ## Advanced
 
