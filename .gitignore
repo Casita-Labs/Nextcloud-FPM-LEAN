@@ -1,4 +1,3 @@
 /data
 .env
 dev_docker-compose.yml
-.git
