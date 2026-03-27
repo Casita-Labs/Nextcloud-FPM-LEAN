@@ -14,7 +14,7 @@ services:
       TZ: ${TZ:-UTC}
     volumes:
       - ./data/html:/var/www/html
-      - ./data/userdata:/var/www/html/data
+      - ./data/userdata:/var/www/html/data # User documents, photos, etc.
       - ./config/php-fpm.conf:/usr/local/etc/php-fpm.d/zzz-custom.conf:ro
       - ./config/php-opcache.ini:/usr/local/etc/php/conf.d/opcache.ini:ro
     networks:
@@ -93,7 +93,7 @@ services:
       TZ: ${TZ:-UTC}
     volumes:
       - ./data/html:/var/www/html
-      - ./data/userdata:/var/www/html/data
+      - ./data/userdata:/var/www/html/data # User documents, photos, etc.
     networks:
       - nextcloud_net
 
@@ -118,7 +118,7 @@ services:
       OVERWRITEPROTOCOL: ${OVERWRITEPROTOCOL}
     volumes:
       - ./data/html:/var/www/html:rw
-      - ./data/userdata:/var/www/html/data:rw
+      - ./data/userdata:/var/www/html/data:rw # User documents, photos, etc.
       - ./bin/init-nextcloud.sh:/init-nextcloud.sh:ro
     networks:
       - nextcloud_net

@@ -30,7 +30,7 @@ docker-compose.yml
          └─ nextcloud-backup        mazzolino/restic:1
 ```
 
-## Quick Start
+## 1 - Quick Start
 ```bash
 git clone https://github.com/Casita-Labs/Nextcloud-FPM-LEAN
 cd nextcloud-fast-stack/http-only
@@ -47,7 +47,8 @@ docker compose logs -f nextcloud nextcloud-init
 4. Point your tunnel (Cloudflare Tunnel, Tailscale, etc.) at `localhost:${CADDY_HTTP_PORT:-8080}`
    so `https://your-tunnel-hostname` routes through the stack.
 
-## `.env` at a glance
+
+## 2- Update `.env` file
 
 ```env
 POSTGRES_PASSWORD=strong-db-password
@@ -63,6 +64,34 @@ AUTO_INIT=true                        # run the helper automatically
   Caddy itself serves HTTP inside the container.
 - Leave `AUTO_INIT=true` so the helper runs the maintenance/repair `occ` commands
   automatically (see `bin/init-nextcloud.sh`).
+
+## 3- Update `docker-compose.yml` - replace `./data` with your volume paths
+```
+  nextcloud:
+    image: nextcloud:33-fpm-alpine
+    volumes:
+      - ./data/html:/var/www/html
+      - ./data/userdata:/var/www/html/data _# User documents, photos, etc_
+  nextcloud-caddy:
+    image: caddy:2-alpine
+    volumes:
+      - ./data/html:/var/www/html:ro
+  nextcloud-db:
+    image: postgres:17-alpine
+    volumes:
+      - ./data/redis:/data
+  nextcloud-cron:
+    image: nextcloud:33-fpm-alpine
+    volumes:
+      - ./data/html:/var/www/html
+      - ./data/userdata:/var/www/html/data _# User documents, photos, etc_
+  nextcloud-init:
+    image: nextcloud:33-fpm-alpine
+    volumes:
+      - ./data/html:/var/www/html:rw
+      - ./data/userdata:/var/www/html/data:rw # User documents, photos, etc.
+```
+
 
 ## What this stack includes
 
