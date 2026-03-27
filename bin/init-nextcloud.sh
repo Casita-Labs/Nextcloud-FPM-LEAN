@@ -43,7 +43,7 @@ tries=0
 max=120
 while [ "$tries" -lt "$max" ]; do
   if su -s /bin/sh www-data -c 'php /var/www/html/occ status' >/tmp/occ_status 2>&1; then
-    if grep -qi "installed" /tmp/occ_status || grep -q '"installed": true' /tmp/occ_status; then
+    if grep -q 'installed: true' /tmp/occ_status; then
       break
     fi
   fi
